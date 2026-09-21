@@ -9,7 +9,7 @@ app's behaviour, or only follows the happy path, does not.
 | **FD-09** promo code | Discount taken from food **and delivery** | Burger Palace → 1× Classic Beef Burger ($12.95) → checkout → `TESENA10` | Discount $1.30 (10% of $12.95, halves up), total $16.14 | Discount $1.59 (10% of $15.94), total $15.85 |
 | **FD-10** minimum order | Minimum checked against the **total incl. fees** | Sushi Masters → California Roll ($10.99) + Salmon Nigiri ($6.99) = $17.98 food | Blocked: "Add $2.02 more…" | Allowed: $17.98 + $2.99 + $1.50 = $22.47 ≥ $20 |
 | **FD-10** (same bug, second symptom) | The "Add $X more" amount counts the fees too | Sushi Masters → 1× California Roll ($10.99) | "Add $9.01 more…" | "Add $4.52 more…" ($20 − $15.48) |
-| **FD-11** favourites | Favourites with a **text slug** are lost on reload | Heart Koliba u Jána (slug `koliba-u-jana`) → reload | Still a favourite | Gone (`Number("koliba-u-jana")` is `NaN`) — numeric slugs 1–4 survive |
+| **FD-11** favourites | Favourites with a **text slug** cannot be kept | On Koliba u Jána's page: heart it → reload. On the landing page: heart its card | Still a favourite, everywhere | Restaurant page: looks saved, gone after reload. Landing card: the heart never turns on. Storage holds `null` for it (`Number("koliba-u-jana")` is `NaN`). Numeric slugs 1–4 work |
 
 All three prices come from the live menu API (checked 21 Sep).
 
@@ -21,8 +21,12 @@ All three prices come from the live menu API (checked 21 Sep).
 | Seed the original data | Done 21 Sep with [`seed-original-data.sql`](seed-original-data.sql): all 5 restaurants and 46 menu items, copied field for field from the original's API (ids, slugs, prices, text fees, promos, images). Lovable reported 5 / 46. |
 | FD-09 promo code | Built 21 Sep. **Planted bug confirmed in the preview:** −$1.59, total $15.85. Invalid code shows "This code is not valid". |
 | FD-10 minimum order | Built 21 Sep. **Planted bug confirmed in the preview:** $17.98 food shows Proceed to Checkout (total $22.47); 1× California Roll shows "Add $4.52 more". "Min. order $20" on the Sushi Masters card; `min_order` added to the table and to `/openapi.json`. |
-| FD-11 favourites | Not started |
+| FD-11 favourites | Built 21 Sep. **Planted bug confirmed** (see the table above). Hearts on all 5 cards with correct accessible names; card heart does not open the restaurant; Favourites chip filters, with the empty-state message; Burger Palace survives a reload. |
+| End-to-end check | 21 Sep, Playwright CLI on the logged-in preview: all three planted bugs reproduce exactly; FD-09 invalid code, Remove and no-stacking work; a normal order still reaches **Order Confirmed**; the landing cards match the original except the intended *Min. order $20*. |
 | Publish to `foodora-new.lovable.app` | Thursday 24 Sep, at lunch |
+
+Test favourites in a **standalone tab** of the preview, not in Lovable's editor pane: the pane runs the app
+in a sandboxed frame that can drop `localStorage` on refresh, which makes every heart look lost.
 
 Lovable's security checker flags helper functions (e.g. `has_role`) as callable without sign-in.
 They exist in the original too; leave both apps alike until after the workshop. The pre-existing FD-05 bugs (delivery
