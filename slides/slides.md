@@ -487,8 +487,8 @@ Foodora has an API too — on another host. The UI's traffic shows you where: <c
 <!--
 09:50 — 2 minutes. If running late, skip it and mention the optional experiment in the wrap-up.
 The banner is the point: an API test that checks the API against itself proves little. The API
-knows what the UI should show — test the UI against it. What that finds is the experiment, and
-material for the Build.
+knows each restaurant's delivery fee — test the cart against it. Do not say which bug it finds;
+that is the experiment (and Build material).
 -->
 
 ---
