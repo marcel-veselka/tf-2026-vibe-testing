@@ -587,4 +587,14 @@
 .battle-steps li {
   font-size: 1.15rem;
   margin: 0.35rem 0;
+
+/* Battle reveal: one screenshot per new feature */
+.shipped .card img {
+  height: 8.5rem;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+  margin-bottom: 0.6rem;
+  border: 1px solid #e5e5e5;
 }

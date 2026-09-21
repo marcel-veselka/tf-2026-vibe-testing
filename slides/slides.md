@@ -948,6 +948,25 @@ Extend your suite to cover them. Use exactly what you built. No rebuilding. No s
 <div class="banner">Last 18 min: each team presents in 3 min. <em>The room votes.</em></div>
 
 ---
+block: battle
+---
+
+# Just shipped on <span class="y">foodora-new</span>
+
+<div class="cards c3 shipped">
+<div class="card"><img src="/img/battle/promo.png" /><div class="n">FD-09</div><h3>Promo code</h3><p>Checkout takes a code. <code>TESENA10</code> takes 10 % off the food.</p></div>
+<div class="card"><img src="/img/battle/min-order.png" /><div class="n">FD-10</div><h3>Minimum order</h3><p>A restaurant can set one. Sushi Masters: $20 of food.</p></div>
+<div class="card"><img src="/img/battle/favourites.png" /><div class="n">FD-11</div><h3>Favourites</h3><p>A heart on every restaurant, a Favourites filter — kept after a reload.</p></div>
+</div>
+
+<div class="banner">The rules are in spec/battle/. <em>Test the story, not the build.</em></div>
+
+<!--
+15:15 — 2 minutes, one sentence per card. Do NOT hint at the bugs: each card states the story, never what the build does.
+Then click on to the work slide with the countdown.
+-->
+
+---
 layout: work
 block: battle
 until: '15:55'
