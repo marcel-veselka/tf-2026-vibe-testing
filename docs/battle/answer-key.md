@@ -20,7 +20,7 @@ All three prices come from the live menu API (checked 21 Sep).
 | Remix `foodora-new` | Done 21 Sep. It got **its own, empty database** — the original is never touched. |
 | Seed the original data | Done 21 Sep with [`seed-original-data.sql`](seed-original-data.sql): all 5 restaurants and 46 menu items, copied field for field from the original's API (ids, slugs, prices, text fees, promos, images). Lovable reported 5 / 46. |
 | FD-09 promo code | Built 21 Sep. **Planted bug confirmed in the preview:** −$1.59, total $15.85. Invalid code shows "This code is not valid". |
-| FD-10 minimum order | In progress |
+| FD-10 minimum order | Built 21 Sep. **Planted bug confirmed in the preview:** $17.98 food shows Proceed to Checkout (total $22.47); 1× California Roll shows "Add $4.52 more". "Min. order $20" on the Sushi Masters card; `min_order` added to the table and to `/openapi.json`. |
 | FD-11 favourites | Not started |
 | Publish to `foodora-new.lovable.app` | Thursday 24 Sep, at lunch |
 
