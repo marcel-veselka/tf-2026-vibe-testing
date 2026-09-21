@@ -8,9 +8,24 @@ app's behaviour, or only follows the happy path, does not.
 | --- | --- | --- | --- | --- |
 | **FD-09** promo code | Discount taken from food **and delivery** | Burger Palace → 1× Classic Beef Burger ($12.95) → checkout → `TESENA10` | Discount $1.30 (10% of $12.95, halves up), total $16.14 | Discount $1.59 (10% of $15.94), total $15.85 |
 | **FD-10** minimum order | Minimum checked against the **total incl. fees** | Sushi Masters → California Roll ($10.99) + Salmon Nigiri ($6.99) = $17.98 food | Blocked: "Add $2.02 more…" | Allowed: $17.98 + $2.99 + $1.50 = $22.47 ≥ $20 |
+| **FD-10** (same bug, second symptom) | The "Add $X more" amount counts the fees too | Sushi Masters → 1× California Roll ($10.99) | "Add $9.01 more…" | "Add $4.52 more…" ($20 − $15.48) |
 | **FD-11** favourites | Favourites with a **text slug** are lost on reload | Heart Koliba u Jána (slug `koliba-u-jana`) → reload | Still a favourite | Gone (`Number("koliba-u-jana")` is `NaN`) — numeric slugs 1–4 survive |
 
-All three prices come from the live menu API (checked 21 Sep). The pre-existing FD-05 bugs (delivery
+All three prices come from the live menu API (checked 21 Sep).
+
+## Build log
+
+| Step | Status |
+| --- | --- |
+| Remix `foodora-new` | Done 21 Sep. It got **its own, empty database** — the original is never touched. |
+| Seed the original data | Done 21 Sep with [`seed-original-data.sql`](seed-original-data.sql): all 5 restaurants and 46 menu items, copied field for field from the original's API (ids, slugs, prices, text fees, promos, images). Lovable reported 5 / 46. |
+| FD-09 promo code | Built 21 Sep. **Planted bug confirmed in the preview:** −$1.59, total $15.85. Invalid code shows "This code is not valid". |
+| FD-10 minimum order | In progress |
+| FD-11 favourites | Not started |
+| Publish to `foodora-new.lovable.app` | Thursday 24 Sep, at lunch |
+
+Lovable's security checker flags helper functions (e.g. `has_role`) as callable without sign-in.
+They exist in the original too; leave both apps alike until after the workshop. The pre-existing FD-05 bugs (delivery
 always $2.99, Burger Palace's 20% never applied) are still there and will interact: the FD-09
 numbers above assume the $2.99 the cart actually charges.
 
