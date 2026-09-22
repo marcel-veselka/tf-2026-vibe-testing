@@ -961,6 +961,18 @@ block: battle
 
 <div class="banner">The rules are in spec/battle/. <em>Test the story, not the build.</em></div>
 
+<style>
+.shipped .card img {
+  height: 8.5rem;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+  margin-bottom: 0.6rem;
+  border: 1px solid #e5e5e5;
+}
+</style>
+
 <!--
 15:15 — 2 minutes, one sentence per card. Do NOT hint at the bugs: each card states the story, never what the build does.
 Then click on to the work slide with the countdown.
